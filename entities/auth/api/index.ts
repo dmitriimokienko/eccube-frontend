@@ -5,17 +5,16 @@ import { ICreateUser } from '@/entities/currentUser/types/dto'
 const apiClient = new ApiClient()
 
 export async function registerUserApi(data: { email: string; password: string; type: UserType }) {
-  const payload = { ...data, firstName: '', lastName: '' }
-  const res = await apiClient.post<ICreateUser, IUser>('/v1/auth/register', payload)
+  const res = await apiClient.post<ICreateUser, IUser>('/v1/auth/register', data)
   return res
 }
 
 export async function loginUserApi(data: { email: string; password: string }) {
-  const res = await apiClient.post<{ email: string; password: string }, { token: string }>(
+  const res = await apiClient.post<{ email: string; password: string }, IUser>(
     '/v1/auth/login',
     data
   )
-  return res.token
+  return res
 }
 
 // TODO: delete, temporary solution

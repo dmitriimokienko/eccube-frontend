@@ -3,8 +3,6 @@ import { UserType } from '..'
 export interface ICreateUser {
   email: string
   password: string
-  firstName: string
-  lastName: string
   type: UserType
   isVerified?: boolean
   isActive?: boolean

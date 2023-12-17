@@ -2,60 +2,43 @@
 import { muiTheme } from '@/core/configs/mui/theme'
 import { auth } from '@/entities/auth/model'
 import { currentUser } from '@/entities/currentUser/model'
-import { UserType } from '@/entities/currentUser/types'
 import { useLayoutHeight } from '@/shared/hooks/useLayoutHeight'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormGroup from '@mui/material/FormGroup'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { ThemeProvider } from '@mui/material/styles'
-import { redirect, useRouter } from 'next/navigation'
-import { omit } from 'ramda'
+import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 
-export interface ISignUpForm {
+export interface ILoginForm {
   email: string
   password: string
-  confirmPassword: string
-  isSupplier: boolean
 }
 
-export default function SignUpPage() {
+export default function LoginPage() {
   // TODO: add validation
   // TODO: add i18n
 
-  const form = useForm<ISignUpForm>()
+  const form = useForm<ILoginForm>()
   const { register, handleSubmit, formState } = form
   const { errors } = formState
 
   const { screenHeight } = useLayoutHeight()
   const router = useRouter()
 
-  const onSubmit = async (data: ISignUpForm) => {
-    const { password, confirmPassword } = data
-    if (password !== confirmPassword) {
-      form.setError('confirmPassword', {
-        type: 'manual',
-        message: 'Password does not match',
-      })
-      return
-    }
+  const onSubmit = async (data: ILoginForm) => {
     try {
-      const type = data.isSupplier ? UserType.Supplier : UserType.Customer
-      const payload = omit(['confirmPassword', 'isSupplier'], { ...data, type })
-      const { id } = await auth.registerFx(payload)
-      currentUser.setInfo({ id } as any)
-      router.push('/signup/success')
+      const user = await auth.loginFx(data)
+      currentUser.setInfo(user)
+      router.push('/onboarding/user-info')
     } catch (error) {
       console.log(error)
-      form.setError('email', {
+      form.setError('password', {
         type: 'manual',
-        message: 'Email already exists',
+        message: 'Wrong email or password',
       })
     }
   }
@@ -86,7 +69,7 @@ export default function SignUpPage() {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            Sign Up
+            Login
           </Typography>
 
           <FormProvider {...form}>
@@ -112,25 +95,8 @@ export default function SignUpPage() {
                   minLength: 6,
                 })}
               />
-              <TextField
-                type="password"
-                label={'Confirm Password'}
-                placeholder="Repeat password"
-                error={!!errors?.confirmPassword}
-                helperText={errors?.confirmPassword?.message}
-                {...register('confirmPassword', {
-                  required: 'Confirm password is required',
-                  minLength: 6,
-                })}
-              />
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox {...register('isSupplier')} defaultChecked={false} />}
-                  label={'I am a supplier'}
-                />
-              </FormGroup>
               <Button variant="contained" type="submit">
-                Continue
+                Log in
               </Button>
             </Stack>
           </FormProvider>

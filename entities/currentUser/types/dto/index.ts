@@ -1,6 +1,6 @@
 import { UserType } from '..'
 
-export interface ICreateUser {
+export interface ICreateUserDto {
   email: string
   password: string
   type: UserType
@@ -8,10 +8,16 @@ export interface ICreateUser {
   isActive?: boolean
 }
 
-export interface IUpdateUser {
-  id: number
+export interface IOnboardingUserDto {
   firstName: string
   lastName: string
-  email: string
+  phoneNumber: string
+  company: string
+  address: string
   //   avatar: string
+}
+
+// TODO: update this interface Omit some props
+export interface IUpdateUserDto extends Partial<IOnboardingUserDto>, Partial<ICreateUserDto> {
+  id: string
 }

@@ -2,6 +2,10 @@
   "name": "eccube-frontend",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Dmitrii Mokienko",
+    "email": "dmitrymokienko@gmail.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -28,6 +32,7 @@
     "react-hook-form": "^7.49.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/ramda": "^0.29.9",
     "@types/react": "^18",

@@ -4,7 +4,6 @@ export const components: Components<Omit<Theme, 'components'>> = {
   MuiButton: {
     defaultProps: {
       variant: 'contained',
-      size: 'medium',
       fullWidth: true,
     },
     styleOverrides: {
@@ -16,8 +15,8 @@ export const components: Components<Omit<Theme, 'components'>> = {
         props: { variant: 'contained' },
         style: ({ theme }) => ({
           padding: '12px 24px',
-          borderRadius: '8px',
-          // backgroundColor: theme.palette.color.brand.brand70,
+          // borderRadius: '8px',
+          backgroundColor: '#4ac1f5',
           // color: theme.palette.color.white.const,
           // boxShadow: `0px 4px 12px 0px rgba(242, 116, 94, 0.25)`,
           // '&:hover': {
@@ -43,15 +42,20 @@ export const components: Components<Omit<Theme, 'components'>> = {
   MuiTextField: {
     defaultProps: {
       variant: 'outlined',
-      size: 'medium',
       fullWidth: true,
       helperText: ' ',
       autoComplete: 'off',
       placeholder: 'Please enter text...',
+      size: 'small',
     },
     styleOverrides: {
       root: ({ theme }) => ({
         marginTop: '8px', // special marginTop for outline inputs
+
+        // it's wrapper under input/textarea tag
+        '& .MuiInputBase-root': {
+          backgroundColor: '#fff',
+        },
       }),
     },
   },

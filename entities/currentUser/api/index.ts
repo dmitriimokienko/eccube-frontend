@@ -1,6 +1,6 @@
 import { ApiClient } from '@/core/api/apiClient'
 import { IUser } from '../types'
-import { IUpdateUser } from '../types/dto'
+import { IUpdateUserDto } from '../types/dto'
 
 // TODO: update path
 export async function getUserInfoApi() {
@@ -9,9 +9,9 @@ export async function getUserInfoApi() {
   return res
 }
 
-export async function updateUserApi(data: IUpdateUser) {
+export async function updateUserApi(data: IUpdateUserDto) {
   const apiClient = new ApiClient()
-  const res = await apiClient.put<IUpdateUser, IUser>('/v0/user/update', data)
+  const res = await apiClient.put<IUpdateUserDto, IUser>('/v0/user/update', data)
   return res
 }
 

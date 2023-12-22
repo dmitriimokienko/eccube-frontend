@@ -36,7 +36,7 @@ export function LoginLayout(props: ILoginLayoutProps) {
         >
           Don&apos;t have an Eccube account?
           <Button
-            variant="contained"
+            variant="outlined"
             type="submit"
             fullWidth={false}
             size="small"

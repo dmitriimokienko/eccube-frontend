@@ -10,33 +10,61 @@ export const components: Components<Omit<Theme, 'components'>> = {
       root: ({ theme }) => ({}),
     },
     variants: [
-      // primary
       {
         props: { variant: 'contained' },
         style: ({ theme }) => ({
           padding: '12px 24px',
-          // borderRadius: '8px',
-          backgroundColor: '#4ac1f5',
-          // color: theme.palette.color.white.const,
-          // boxShadow: `0px 4px 12px 0px rgba(242, 116, 94, 0.25)`,
-          // '&:hover': {
-          //   backgroundColor: theme.palette.color.brand.hover,
-          //   boxShadow: `0px 4px 16px 0px rgba(242, 116, 94, 0.50)`,
-          // },
-          // '&:active': {
-          //   backgroundColor: theme.palette.color.brand.pressed,
-          //   boxShadow: `0px 4px 16px 0px rgba(242, 116, 94, 0.50)`,
-          // },
-          // '&:disabled': {
-          //   color: theme.palette.color.white.const,
-          //   backgroundColor: theme.palette.color.gray.gray120,
-          //   boxShadow: 'none',
-          //   cursor: 'not-allowed',
-          // },
+          backgroundColor: theme.palette.custom.blue[0],
+          // TODO: add new boxShadows
+          '&:hover': {
+            backgroundColor: theme.palette.custom.blue[1],
+          },
+          '&:active': {
+            backgroundColor: theme.palette.custom.blue[2],
+          },
+          '&:disabled': {
+            // color: theme.palette.color.white.const,
+            // backgroundColor: theme.palette.grey[100],
+            boxShadow: 'none',
+            cursor: 'not-allowed',
+          },
         }),
       },
-      // TODO: customize other variants
+      {
+        props: { variant: 'outlined' },
+        style: ({ theme }) => ({
+          padding: '10px 22px', // '12px 24px',
+          color: theme.palette.custom.blue[0],
+          border: `2px solid ${theme.palette.custom.blue[0]}`,
+          '&:hover': {
+            border: `2px solid ${theme.palette.custom.blue[1]}`,
+          },
+          '&:active': {
+            border: `2px solid ${theme.palette.custom.blue[2]}`,
+          },
+          '&:disabled': {
+            color: theme.palette.grey[400],
+            // backgroundColor: theme.palette.white.const,
+            border: `2px solid ${theme.palette.grey[400]}`,
+            cursor: 'not-allowed',
+          },
+        }),
+      },
     ],
+  },
+
+  MuiCheckbox: {
+    defaultProps: {
+      color: 'primary',
+    },
+    styleOverrides: {
+      root: ({ theme }) => ({
+        color: theme.palette.grey[400],
+        '&.Mui-checked': {
+          color: theme.palette.custom.blue[0],
+        },
+      }),
+    },
   },
 
   MuiTextField: {
@@ -52,10 +80,44 @@ export const components: Components<Omit<Theme, 'components'>> = {
       root: ({ theme }) => ({
         marginTop: '8px', // special marginTop for outline inputs
 
-        // it's wrapper under input/textarea tag
+        // wrapper under input/textarea tag
         '& .MuiInputBase-root': {
           backgroundColor: '#fff',
         },
+        // input/textarea tag
+        '& .MuiInputBase-input': {
+          fontWeight: 400,
+          lineHeight: '24px',
+          height: '24px', // lineHeight is not enough for MUI
+        },
+        // focused
+        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderWidth: '2px',
+          borderColor: theme.palette.custom.blue[0],
+        },
+        // label
+        '& .MuiInputLabel-shrink.Mui-focused': {
+          fontWeight: 400,
+          color: theme.palette.custom.blue[0],
+        },
+
+        // error
+        // '& .MuiFormHelperText-root.Mui-error': {
+        //   color: '#f75456',
+        // },
+        // '& .MuiInputLabel-shrink.Mui-error': {
+        //   color: '#f75456',
+        // },
+        // '& .Mui-error': {
+        //   '& .MuiInputLabel-shrink.Mui-focused': {
+        //     fontWeight: 400,
+        //     color: '#f75456',
+        //   },
+        //   '& .MuiOutlinedInput-notchedOutline': {
+        //     borderWidth: '2px',
+        //     borderColor: '#f75456',
+        //   },
+        // },
       }),
     },
   },

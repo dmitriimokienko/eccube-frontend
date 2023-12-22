@@ -36,7 +36,7 @@ export function SignUpLayout(props: ISignUpLayoutProps) {
         >
           Have an Eccube account?
           <Button
-            variant="contained"
+            variant="outlined"
             type="submit"
             fullWidth={false}
             size="small"

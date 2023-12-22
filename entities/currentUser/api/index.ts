@@ -11,7 +11,7 @@ export async function getUserInfoApi() {
 
 export async function updateUserApi(data: IUpdateUserDto) {
   const apiClient = new ApiClient()
-  const res = await apiClient.put<IUpdateUserDto, IUser>('/v0/user/update', data)
+  const res = await apiClient.put<IUpdateUserDto, IUser>('/v1/user/update', data)
   return res
 }
 

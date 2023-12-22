@@ -27,12 +27,13 @@ export default function LoginPage() {
   const onSubmit = async (data: ILoginForm) => {
     try {
       const user = await auth.loginFx(data)
-      currentUser.setInfo(user)
-      router.push('/onboarding')
+      if (user) {
+        currentUser.setInfo(user)
+        router.push('/onboarding')
+      }
     } catch (error) {
       console.log(error)
       form.setError('password', {
-        type: 'manual',
         message: 'Wrong email or password',
       })
     }
@@ -67,10 +68,10 @@ export default function LoginPage() {
               minLength: 6,
             })}
           />
+          <Button variant="contained" type="submit" sx={{ marginTop: '24px' }}>
+            Continue
+          </Button>
         </Stack>
-        <Button variant="contained" type="submit" sx={{ marginTop: '24px' }}>
-          Log in
-        </Button>
       </FormProvider>
     </LoginLayout>
   )

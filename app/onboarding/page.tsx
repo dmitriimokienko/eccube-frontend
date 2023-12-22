@@ -1,5 +1,5 @@
 'use client'
-import { OnboardingLayout } from '@/shared/ui/layouts/custom/OnboardingLayout'
+import { OnboardingLayout } from '@/shared/ui/layouts/custom/SeparateLayout/OnboardingLayout'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'

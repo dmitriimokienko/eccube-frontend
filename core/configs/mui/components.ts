@@ -23,7 +23,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
             backgroundColor: theme.palette.custom.blue[2],
           },
           '&:disabled': {
-            // color: theme.palette.color.white.const,
+            color: theme.palette.custom.const.white,
             // backgroundColor: theme.palette.grey[100],
             boxShadow: 'none',
             cursor: 'not-allowed',
@@ -46,6 +46,24 @@ export const components: Components<Omit<Theme, 'components'>> = {
             color: theme.palette.grey[400],
             // backgroundColor: theme.palette.white.const,
             border: `2px solid ${theme.palette.grey[400]}`,
+            cursor: 'not-allowed',
+          },
+        }),
+      },
+      {
+        props: { variant: 'text' },
+        style: ({ theme }) => ({
+          padding: '4px',
+          color: theme.palette.custom.blue[0],
+          '&:hover': {
+            color: theme.palette.custom.blue[1],
+            backgroundColor: 'transparent',
+          },
+          '&:active': {
+            color: theme.palette.custom.blue[2],
+          },
+          '&:disabled': {
+            color: theme.palette.grey[400],
             cursor: 'not-allowed',
           },
         }),
@@ -82,7 +100,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
 
         // wrapper under input/textarea tag
         '& .MuiInputBase-root': {
-          backgroundColor: '#fff',
+          backgroundColor: theme.palette.custom.const.white,
         },
         // input/textarea tag
         '& .MuiInputBase-input': {

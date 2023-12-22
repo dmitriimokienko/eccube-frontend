@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
 import { ReactNode } from 'react'
 // import './globals.css'
-import ThemeRegistry from '@/shared/ui/layouts/ThemeRegistry'
+import ThemeRegistry from '@/shared/ui/providers/ThemeRegistry'
 
 // const font = Quicksand({
 //   weight: ['400', '500', '700'],

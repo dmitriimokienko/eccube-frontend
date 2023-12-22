@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 import { components } from './components'
 import { Montserrat, Roboto_Condensed } from 'next/font/google'
+import { palette } from './palette'
 
 const roboto = Roboto_Condensed({
   weight: ['400', '500', '700'],
@@ -28,18 +29,10 @@ export const muiTheme = createTheme({
       xl: 1921,
     },
   },
+  palette,
   components,
   typography: {
     fontFamily: roboto.style.fontFamily,
     fontSize: 16,
-  },
-  palette: {
-    custom: {
-      blue: {
-        0: '#4ac1f5', // primary
-        1: '#33ace0', // primary hover
-        2: '#1ab1f2', // primary pressed
-      },
-    },
   },
 })

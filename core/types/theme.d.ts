@@ -10,8 +10,9 @@ import {
 
 // Palette
 
-type ConstColor = {
-  const: CSSProperties['color']
+type ConstColors = {
+  white: CSSProperties['color']
+  black: CSSProperties['color']
 }
 
 type BlueColor = {
@@ -22,6 +23,7 @@ type BlueColor = {
 
 type CustomPaletteColors = {
   blue: BlueColor
+  const: ConstColors
 }
 
 type CustomPalette = {

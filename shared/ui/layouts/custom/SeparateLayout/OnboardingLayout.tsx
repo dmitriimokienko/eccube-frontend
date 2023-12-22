@@ -4,56 +4,28 @@ import {
   ISeparateLayoutProps,
   SEPARATE_LAYOUT_SIDEBAR_WIDTH,
   SeparateLayout,
-} from '../SeparateLayout'
-import Button from '@mui/material/Button'
+} from '../../SeparateLayout'
 import Typography from '@mui/material/Typography'
 import EccubeBg from '@/public/images/eccube_bg.jpeg'
 import { SidebarRandomContent, getRandomInt } from './lib/utils'
-import { useRouter } from 'next/navigation'
 
-export interface ISignUpLayoutProps extends ISeparateLayoutProps {}
+export interface IOnboardingLayoutProps extends ISeparateLayoutProps {}
 
-export function SignUpLayout(props: ISignUpLayoutProps) {
-  const { children } = props
-
-  const router = useRouter()
+export function OnboardingLayout(props: IOnboardingLayoutProps) {
+  const { children, Header = null } = props
 
   const random = getRandomInt()
   const sidebar = SidebarRandomContent[random]
 
   return (
     <SeparateLayout
-      Header={
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            gap: '24px',
-            height: '100%',
-            width: '100%',
-          }}
-        >
-          Have an Eccube account?
-          <Button
-            variant="outlined"
-            type="submit"
-            fullWidth={false}
-            size="small"
-            onClick={() => {
-              router.push('/login')
-            }}
-          >
-            Log in
-          </Button>
-        </Box>
-      }
+      Header={Header}
       Sidebar={
         <Box pt={6}>
-          <Typography variant="h5" component="h1" color="#fff">
+          <Typography variant="h5" component="h1" color="custom.const.white">
             {sidebar?.title ?? {}}
           </Typography>
-          <Typography variant="body1" color="#fff" mt={5}>
+          <Typography variant="body1" color="custom.const.white" mt={5}>
             {sidebar?.description ?? {}}
           </Typography>
         </Box>

@@ -1,7 +1,7 @@
 'use client'
 import { auth } from '@/entities/auth/model'
 import { currentUser } from '@/entities/currentUser/model'
-import { LoginLayout } from '@/shared/ui/layouts/custom/LoginLayout'
+import { LoginLayout } from '@/shared/ui/layouts/custom/SeparateLayout/LoginLayout'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'

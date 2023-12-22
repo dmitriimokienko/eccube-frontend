@@ -1,7 +1,8 @@
 import Box from '@mui/material/Box'
 import { ReactNode } from 'react'
 import EccubeLogo from '@/public/icons/eccube-logo-white.svg'
-import { SxProps } from '@mui/material/styles'
+import { SxProps, Theme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export interface ISeparateLayoutProps {
   children: ReactNode
@@ -24,6 +25,7 @@ export interface ISeparateLayoutProps {
 export const SEPARATE_LAYOUT_SIDEBAR_WIDTH = 360
 export const SEPARATE_LAYOUT_HEADER_HEIGHT = 72
 export const SEPARATE_LAYOUT_CONTENT_WIDTH = 480
+export const SEPARATE_LAYOUT_COMPACT_BREAKPOINT = 1280
 
 export function SeparateLayout(props: ISeparateLayoutProps) {
   const {
@@ -36,6 +38,67 @@ export function SeparateLayout(props: ISeparateLayoutProps) {
     MainProps = {},
   } = props
 
+  // special breakpoint for current layout
+  const isCompactView = useMediaQuery<Theme>((theme) =>
+    theme.breakpoints.down(SEPARATE_LAYOUT_COMPACT_BREAKPOINT)
+  )
+
+  if (isCompactView) {
+    return (
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: 'auto',
+          gridTemplateRows: '72px auto',
+          gridTemplateAreas: `
+          "header"
+          "main"
+          `,
+          width: '100%',
+          height: '100dvh', // TODO: check it works correctly
+          backgroundColor: '#F6F7F8', // '#f1eeee',
+          ...(WrapperProps?.sx || {}),
+        }}
+      >
+        {/* header */}
+        <Box
+          component="header"
+          sx={{
+            gridArea: 'header',
+            position: 'sticky',
+            top: 0,
+            left: 0,
+            zIndex: 1,
+            width: '100%',
+            padding: '8px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            ...(HeaderProps?.sx || {}),
+          }}
+        >
+          {Header}
+        </Box>
+        {/* main */}
+        <Box sx={{ gridArea: 'main' }}>
+          <Box
+            component="main"
+            sx={{
+              zIndex: 1,
+              margin: '0 auto',
+              marginTop: '24px',
+              padding: '0 24px',
+              maxWidth: `${SEPARATE_LAYOUT_CONTENT_WIDTH}px`,
+              ...(MainProps?.sx || {}),
+            }}
+          >
+            {children}
+          </Box>
+        </Box>
+      </Box>
+    )
+  }
+
+  // Desktop view
   return (
     <Box
       sx={{
@@ -62,13 +125,14 @@ export function SeparateLayout(props: ISeparateLayoutProps) {
           left: 0,
           zIndex: 1,
           width: '100%',
-          padding: '32px',
+          padding: '8px 40px',
+          display: 'flex',
+          alignItems: 'center',
           ...(HeaderProps?.sx || {}),
         }}
       >
         {Header}
       </Box>
-
       {/* sidebar */}
       <Box
         component="aside"
@@ -83,7 +147,6 @@ export function SeparateLayout(props: ISeparateLayoutProps) {
           {Sidebar}
         </Box>
       </Box>
-
       {/* main */}
       <Box sx={{ gridArea: 'main' }}>
         <Box

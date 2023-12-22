@@ -2,19 +2,26 @@
 import Box from '@mui/material/Box'
 import {
   ISeparateLayoutProps,
+  SEPARATE_LAYOUT_COMPACT_BREAKPOINT,
   SEPARATE_LAYOUT_SIDEBAR_WIDTH,
   SeparateLayout,
-} from '../SeparateLayout'
+} from '../../SeparateLayout'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import EccubeBg from '@/public/images/eccube_bg.jpeg'
 import { SidebarRandomContent, getRandomInt } from './lib/utils'
 import { useRouter } from 'next/navigation'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { Theme } from '@mui/material/styles'
 
 export interface ILoginLayoutProps extends ISeparateLayoutProps {}
 
 export function LoginLayout(props: ILoginLayoutProps) {
   const { children } = props
+
+  const isCompactView = useMediaQuery<Theme>((theme) =>
+    theme.breakpoints.down(SEPARATE_LAYOUT_COMPACT_BREAKPOINT)
+  )
 
   const router = useRouter()
 
@@ -29,7 +36,7 @@ export function LoginLayout(props: ILoginLayoutProps) {
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            gap: '24px',
+            gap: isCompactView ? '8px' : '24px',
             height: '100%',
             width: '100%',
           }}
@@ -50,10 +57,10 @@ export function LoginLayout(props: ILoginLayoutProps) {
       }
       Sidebar={
         <Box pt={6}>
-          <Typography variant="h5" component="h1" color="#fff">
+          <Typography variant="h5" component="h1" color="custom.const.white">
             {sidebar?.title ?? {}}
           </Typography>
-          <Typography variant="body1" color="#fff" mt={5}>
+          <Typography variant="body1" color="custom.const.white" mt={5}>
             {sidebar?.description ?? {}}
           </Typography>
         </Box>

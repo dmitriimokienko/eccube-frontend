@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/navigation'
 import { useUnit } from 'effector-react'
-import { SignUpLayout } from '@/shared/ui/layouts/custom/SignUpLayout'
+import { SignUpLayout } from '@/shared/ui/layouts/custom/SeparateLayout/SignUpLayout'
 
 export interface ISignUpForm {
   email: string

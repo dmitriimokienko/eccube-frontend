@@ -1,20 +1,30 @@
 'use client'
 import { onboarding } from '@/entities/onboarding/model'
 import { IOnboardingUserData } from '@/entities/onboarding/types'
-import { OnboardingLayout } from '@/shared/ui/layouts/custom/OnboardingLayout'
+import { OnboardingLayout } from '@/shared/ui/layouts/custom/SeparateLayout/OnboardingLayout'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useUnit } from 'effector-react'
+import { PrevPageButton } from '@/shared/ui/layouts/custom/SeparateLayout/components/PrevPageButton'
 
 export default function UserOnBoardingPage() {
   // TODO: add validation
   // TODO: add i18n
   const router = useRouter()
 
-  const form = useForm<IOnboardingUserData>()
+  const user = useUnit(onboarding.$user)
+
+  const form = useForm<IOnboardingUserData>({
+    defaultValues: {
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      phoneNumber: user?.phoneNumber,
+    },
+  })
   const { handleSubmit, register, formState } = form
   const { errors } = formState
 
@@ -24,12 +34,22 @@ export default function UserOnBoardingPage() {
   }
 
   return (
-    <OnboardingLayout>
+    <OnboardingLayout
+      Header={
+        <PrevPageButton
+          onClick={() => {
+            router.push('/onboarding')
+          }}
+        >
+          Previous step
+        </PrevPageButton>
+      }
+    >
       <Typography variant="h4" component="h1" pb={4}>
         Your information
       </Typography>
       <FormProvider {...form}>
-        <Stack component="form" spacing={3} onSubmit={handleSubmit(onSubmit)}>
+        <Stack component="form" spacing={1} onSubmit={handleSubmit(onSubmit)}>
           <TextField
             label={'First name'}
             placeholder="Enter your first name"
@@ -61,7 +81,7 @@ export default function UserOnBoardingPage() {
             })}
           />
           <Button variant="contained" type="submit" sx={{ marginTop: '24px' }}>
-            {`Next >>`}
+            {`Next`}
           </Button>
         </Stack>
       </FormProvider>

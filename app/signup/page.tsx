@@ -2,7 +2,7 @@
 import { auth } from '@/entities/auth/model'
 import { currentUser } from '@/entities/currentUser/model'
 import { UserType } from '@/entities/currentUser/types'
-import { SignUpLayout } from '@/shared/ui/layouts/custom/SignUpLayout'
+import { SignUpLayout } from '@/shared/ui/layouts/custom/SeparateLayout/SignUpLayout'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'

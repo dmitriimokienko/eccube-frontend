@@ -13,3 +13,12 @@ export interface IUser {
   isActive: boolean
   isVerified: boolean
 }
+
+export interface ILoginUserResponse {
+  user: IUser
+  backendTokens: {
+    accessToken: string
+    refreshToken: string
+    expiresIn: number
+  }
+}

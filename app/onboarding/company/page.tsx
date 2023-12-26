@@ -10,11 +10,13 @@ import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
 import { PrevPageButton } from '@/shared/ui/layouts/custom/SeparateLayout/components/PrevPageButton'
+import { useSession } from 'next-auth/react'
 
 export default function CompanyOnBoardingPage() {
   // TODO: add validation
   // TODO: add i18n
   const router = useRouter()
+  const session = useSession()
 
   const company = useUnit(onboarding.$company)
 
@@ -30,7 +32,15 @@ export default function CompanyOnBoardingPage() {
   const onSubmit = async (data: IOnboardingCompanyData) => {
     try {
       onboarding.setCompanyInfo(data)
-      await onboarding.sendDataFx()
+      const accessToken = session?.data?.backendTokens?.accessToken
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/v1/user/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+      })
       router.push('/onboarding/mollie')
     } catch (error) {
       console.error(error)

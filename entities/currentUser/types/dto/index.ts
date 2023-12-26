@@ -18,6 +18,4 @@ export interface IOnboardingUserDto {
 }
 
 // TODO: update this interface Omit some props
-export interface IUpdateUserDto extends Partial<IOnboardingUserDto>, Partial<ICreateUserDto> {
-  id: string
-}
+export interface IUpdateUserDto extends Partial<IOnboardingUserDto>, Partial<ICreateUserDto> {}

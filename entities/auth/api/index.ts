@@ -1,16 +1,23 @@
 import { ApiClient } from '@/core/api/apiClient'
-import { IUser, UserType } from '@/entities/currentUser/types'
+import { ILoginUserResponse, IUser, UserType } from '@/entities/currentUser/types'
 import { ICreateUserDto } from '@/entities/currentUser/types/dto'
 
 const apiClient = new ApiClient()
 
 export async function registerUserApi(data: { email: string; password: string; type: UserType }) {
-  const res = await apiClient.post<ICreateUserDto, IUser>('/v1/auth/register', data)
+  // const res = await apiClient.post<ICreateUserDto, IUser>('/v1/auth/register', data)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/v1/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
   return res
 }
 
 export async function loginUserApi(data: { email: string; password: string }) {
-  const res = await apiClient.post<{ email: string; password: string }, IUser>(
+  const res = await apiClient.post<{ email: string; password: string }, ILoginUserResponse>(
     '/v1/auth/login',
     data
   )

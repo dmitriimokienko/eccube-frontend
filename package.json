@@ -27,6 +27,7 @@
     "effector-logger": "^0.15.0",
     "effector-react": "^23.0.1",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "ramda": "^0.29.1",
     "react": "^18",
     "react-dom": "^18",

@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 // import './globals.css'
 import ThemeRegistry from '@/shared/ui/providers/ThemeRegistry'
 import { Roboto_Condensed } from 'next/font/google'
+import AuthProvider from '@/shared/ui/providers/AuthProvider'
 
 // const font = Quicksand({
 //   weight: ['400', '500', '700'],
@@ -36,9 +37,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="stylesheet" href={font.url} /> */}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </head>
-      {/* <body> */}
       <body className={font.className}>
-        <ThemeRegistry options={{ key: 'mui-theme' }}>{children}</ThemeRegistry>
+        <ThemeRegistry options={{ key: 'mui-theme' }}>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeRegistry>
       </body>
     </html>
   )

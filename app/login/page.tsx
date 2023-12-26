@@ -1,13 +1,14 @@
 'use client'
-import { auth } from '@/entities/auth/model'
-import { currentUser } from '@/entities/currentUser/model'
+// import { auth } from '@/entities/auth/model'
+// import { currentUser } from '@/entities/currentUser/model'
 import { LoginLayout } from '@/shared/ui/layouts/custom/SeparateLayout/LoginLayout'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
 
 export interface ILoginForm {
   email: string
@@ -22,21 +23,15 @@ export default function LoginPage() {
   const { register, handleSubmit, formState } = form
   const { errors } = formState
 
-  const router = useRouter()
+  // const router = useRouter()
 
   const onSubmit = async (data: ILoginForm) => {
-    try {
-      const user = await auth.loginFx(data)
-      if (user) {
-        currentUser.setInfo(user)
-        router.push('/onboarding')
-      }
-    } catch (error) {
-      console.log(error)
-      form.setError('password', {
-        message: 'Wrong email or password',
-      })
-    }
+    await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: true,
+      callbackUrl: '/onboarding',
+    })
   }
 
   return (

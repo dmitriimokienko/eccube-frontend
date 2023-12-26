@@ -7,12 +7,11 @@ import { currentUser } from '@/entities/currentUser/model'
 const reset = createEvent()
 
 const sendDataFx = createEffect(async () => {
-  const id = currentUser.$info.getState()!.id
   const data = {
-    id,
     ...$user.getState()!,
     ...$company.getState()!,
   }
+  console.log('sendDataFx', data)
   const response = await updateUserApi(data)
   return response
 })

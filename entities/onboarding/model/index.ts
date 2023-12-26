@@ -1,4 +1,3 @@
-import { updateUserApi } from '@/entities/currentUser/api'
 import { Nullable } from '@/shared/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { IOnboardingCompanyData, IOnboardingUserData } from '../types'
@@ -6,14 +5,21 @@ import { currentUser } from '@/entities/currentUser/model'
 
 const reset = createEvent()
 
-const sendDataFx = createEffect(async () => {
+const sendDataFx = createEffect(async (accessToken: string) => {
   const data = {
     ...$user.getState()!,
     ...$company.getState()!,
   }
-  console.log('sendDataFx', data)
-  const response = await updateUserApi(data)
-  return response
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/v1/user/update`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+  })
+  const res = await response.json()
+  return res
 })
 
 const $user = createStore<Nullable<IOnboardingUserData>>(null)

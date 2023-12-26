@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth'
 type ApiConfig = CreateAxiosDefaults<any>
 
 export class ApiClient {
-  private instance: AxiosInstance
+  public instance: AxiosInstance
 
   protected createClient(apiConfiguration: ApiConfig): AxiosInstance {
     const { baseURL, responseType, headers } = apiConfiguration
@@ -26,7 +26,6 @@ export class ApiClient {
 
   public async get<TResponse>(path: string): Promise<TResponse> {
     try {
-      await this.setAccessToken()
       const response = await this.instance.get<TResponse>(path)
       return response.data
     } catch (err) {
@@ -41,7 +40,6 @@ export class ApiClient {
     config?: AxiosRequestConfig<any>
   ): Promise<TResponse> {
     try {
-      await this.setAccessToken()
       const response = await this.instance.post<TResponse>(path, payload, config)
       return response.data
     } catch (err) {
@@ -52,7 +50,6 @@ export class ApiClient {
 
   public async put<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
     try {
-      await this.setAccessToken()
       const response = await this.instance.put<TResponse>(path, payload)
       return response.data
     } catch (err) {
@@ -63,7 +60,6 @@ export class ApiClient {
 
   public async patch<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
     try {
-      await this.setAccessToken()
       const response = await this.instance.patch<TResponse>(path, payload)
       return response.data
     } catch (err) {
@@ -74,7 +70,6 @@ export class ApiClient {
 
   public async delete<TResponse>(path: string): Promise<TResponse> {
     try {
-      await this.setAccessToken()
       const response = await this.instance.delete<TResponse>(path)
       return response.data
     } catch (err) {
@@ -94,15 +89,5 @@ export class ApiClient {
     }
     // Something happened in setting up the request that triggered an Error
     console.error(`Error message:: ${error.message}`)
-  }
-
-  protected async setAccessToken(): Promise<string> {
-    const session = await getServerSession(authOptions)
-    const accessToken = session?.backendTokens?.accessToken
-    if (!accessToken) {
-      throw new Error('Access token is not set')
-    }
-    this.instance.defaults.headers.common.Authorization = `Bearer ${accessToken}`
-    return accessToken
   }
 }

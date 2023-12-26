@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
 import { PrevPageButton } from '@/shared/ui/layouts/custom/SeparateLayout/components/PrevPageButton'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 
 export default function UserOnBoardingPage() {
   // TODO: add validation
@@ -19,7 +19,7 @@ export default function UserOnBoardingPage() {
 
   const user = useUnit(onboarding.$user)
 
-  const session = useSession()
+  // const session = useSession()
 
   const form = useForm<IOnboardingUserData>({
     defaultValues: {
@@ -33,16 +33,15 @@ export default function UserOnBoardingPage() {
 
   const onSubmit = async (data: IOnboardingUserData) => {
     onboarding.setUserInfo(data)
-    // await updateUserApi(data)
-    const accessToken = session?.data?.backendTokens?.accessToken
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/v1/user/update`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(data),
-    })
+    // const accessToken = session?.data?.backendTokens?.accessToken
+    // await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/v1/user/update`, {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     authorization: `Bearer ${accessToken}`,
+    //   },
+    //   body: JSON.stringify(data),
+    // })
     router.push('/onboarding/company')
   }
 

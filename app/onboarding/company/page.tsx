@@ -18,7 +18,10 @@ export default function CompanyOnBoardingPage() {
   const router = useRouter()
   const session = useSession()
 
-  const company = useUnit(onboarding.$company)
+  const { company, updateData } = useUnit({
+    company: onboarding.$company,
+    updateData: onboarding.sendDataFx,
+  })
 
   const form = useForm<IOnboardingCompanyData>({
     defaultValues: {
@@ -33,14 +36,7 @@ export default function CompanyOnBoardingPage() {
     try {
       onboarding.setCompanyInfo(data)
       const accessToken = session?.data?.backendTokens?.accessToken
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/v1/user/update`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(data),
-      })
+      await updateData(accessToken!)
       router.push('/onboarding/mollie')
     } catch (error) {
       console.error(error)

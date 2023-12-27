@@ -1,6 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, CreateAxiosDefaults } from 'axios'
-import { getServerSession } from 'next-auth'
 
 type ApiConfig = CreateAxiosDefaults<any>
 

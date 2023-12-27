@@ -39,10 +39,10 @@ sample({
   target: currentUser.setInfo,
 })
 
-sample({
-  clock: sendDataFx.doneData,
-  target: reset,
-})
+// sample({
+//   clock: sendDataFx.doneData,
+//   target: reset,
+// })
 
 export const onboarding = {
   $user,

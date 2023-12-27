@@ -97,6 +97,6 @@ async function refreshToken(token: JWT): Promise<JWT> {
     },
   })
   const backendTokens = await res.json()
-  console.log('refreshed', backendTokens)
+  console.log('refreshed:: ', backendTokens)
   return { ...token, backendTokens }
 }
